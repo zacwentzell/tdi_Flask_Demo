@@ -27,9 +27,10 @@ def stocks():
 @app.route('/crypto')
 def crypto():
     script, div = '', ''
-    ticker = request.args.get('name').upper()
+    ticker = request.args.get('name')
 
     if ticker:
+        ticker = ticker.upper()
         poloniex_url = 'https://poloniex.com/public?command=returnChartData&currencyPair=BTC_{}&start=1435699200&end=9999999999&period=86400'
 
         try:
@@ -43,11 +44,14 @@ def crypto():
                                         ('Closing Price', '@close{0.00000000}'),
                                         ('Low|High', '@low{0.00000000}|@high{0.00000000}')
                                         ])
-            plot = figure(plot_height=100, x_axis_type='datetime',
+            plot = figure(plot_height=200, x_axis_type='datetime',
                           tools=['pan', 'wheel_zoom', 'box_zoom', 'reset', hover],
                           x_axis_label='Date and Time',
                           y_axis_label='Closing Price',
+                          title='{} Historical Price Data'.format(ticker),
                           responsive=True)
+            plot.title.align = 'center'
+            plot.title.text_font_size = '25px'
 
             plot.line('date', 'close', source=df, color='black')
 
@@ -65,4 +69,4 @@ def crypto_pick():
 
 
 if __name__ == '__main__':
-    app.run(port=33507)
+    app.run(port=33507, debug=True)
