@@ -3,13 +3,15 @@
 <head>
     <meta charset="UTF-8">
     <title>Cryptocurrency Charts</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap-theme.min.css">
     <link href="http://cdn.pydata.org/bokeh/release/bokeh-0.12.5.min.css" rel="stylesheet" type="text/css">
     <link href="http://cdn.pydata.org/bokeh/release/bokeh-widgets-0.12.5.min.css" rel="stylesheet" type="text/css">
     <script src="http://cdn.pydata.org/bokeh/release/bokeh-0.12.5.min.js"></script>
     <script src="http://cdn.pydata.org/bokeh/release/bokeh-widgets-0.12.5.min.js"></script>
-    <link rel="stylesheet" href="//code.jquery.com/ui/1.11.4/themes/smoothness/jquery-ui.css">
-    <script src="//code.jquery.com/jquery-1.10.2.js"></script>
-    <script src="//code.jquery.com/ui/1.11.4/jquery-ui.js"></script>
+{#    <link rel="stylesheet" href="//code.jquery.com/ui/1.11.4/themes/smoothness/jquery-ui.css">#}
+{#    <script src="//code.jquery.com/jquery-1.10.2.js"></script>#}
+{#    <script src="//code.jquery.com/ui/1.11.4/jquery-ui.js"></script>#}
 {#    <script>#}
 {#        $(function () {#}
 {#            $(".dtpick").datepicker();#}
@@ -18,9 +20,10 @@
     {{ script|safe }}
 </head>
 <body>
+<a href="/">Home</a>
 <h1>Crypto Page</h1>
-<form action="/crypto_pick" method="POST">
-    <p>Crytpo Ticker (e.g. ETH)<input type="text" name="Name"/></p>
+<form action="/crypto" method="POST">
+    <p>Crytpo Ticker <br> <input type="text" name="Name" value="{{ ticker }}" placeholder="(e.g. ETH)"/></p>
     <p><input type="submit" value="Submit"/></p>
 </form>
 {{ div|safe }}

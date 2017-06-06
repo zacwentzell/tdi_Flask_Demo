@@ -3,8 +3,41 @@
 <head>
     <meta charset="UTF-8">
     <title>Stock Charts</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap-theme.min.css">
+    <link href="http://cdn.pydata.org/bokeh/release/bokeh-0.12.5.min.css" rel="stylesheet" type="text/css">
+    <link href="http://cdn.pydata.org/bokeh/release/bokeh-widgets-0.12.5.min.css" rel="stylesheet" type="text/css">
+    <script src="http://cdn.pydata.org/bokeh/release/bokeh-0.12.5.min.js"></script>
+    <script src="http://cdn.pydata.org/bokeh/release/bokeh-widgets-0.12.5.min.js"></script>
+{#    <link rel="stylesheet" href="//code.jquery.com/ui/1.11.4/themes/smoothness/jquery-ui.css">#}
+{#    <script src="//code.jquery.com/jquery-1.10.2.js"></script>#}
+{#    <script src="//code.jquery.com/ui/1.11.4/jquery-ui.js"></script>#}
+    {#    <script>#}
+    {#        $(function () {#}
+    {#            $(".dtpick").datepicker();#}
+    {#        });#}
+    {#    </script>#}
+    {{ script|safe }}
 </head>
 <body>
-    <h1>Stocks Page</h1>
+<a href="/">Home</a>
+<h1>Stock Page</h1>
+<form action="/stocks" method="POST">
+    Stock Ticker <input type="text" name="Name" value="{{ ticker }}" placeholder="(e.g. MSFT)"/><br>
+    What to plot?<br>
+    {% for item in plot_options %}
+        <input type="checkbox" name="plt_opt_{{ item }}">{{ item }}
+    {% endfor %}
+    <br><br>What to display in the Tooltip?<br>
+    {% for item in tooltip_options %}
+        <input type="checkbox" name="tt_opt_{{ item }}">{{ item }}
+    {% endfor %}
+
+
+
+    <p></p>
+    <p><input type="submit" value="Submit"/></p>
+</form>
+{{ div|safe }}
 </body>
 </html>
