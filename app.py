@@ -56,7 +56,7 @@ def stocks():
         if ticker:
             colors = d3['Category10'][max(len(plot_options), 3)]
             ticker = ticker.upper()
-            quandl_url = 'https://www.quandl.com/api/v3/datasets/WIKI/{}.json'.format(ticker)
+            quandl_url = 'https://www.quandl.com/api/v3/datasets/WIKI/{}.json?api_key=8W4wYTMuHYfsy4WTyw7L'.format(ticker)
 
             # try:
             quandl = requests.get(quandl_url).json()
