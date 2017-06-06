@@ -13,6 +13,7 @@ STOCK_PLOT_OPTIONS = ['Open', 'High', 'Low', 'Close', 'Adj. Open', 'Adj. High', 
 
 STOCK_TOOLTIP_OPTIONS = ['Volume', 'Ex-Dividend', 'Split Ratio', 'Adj. Volume']
 
+
 class TruthyDataFrame(pd.DataFrame):
     def __bool__(self):
         return False
@@ -64,7 +65,7 @@ def stocks():
                 data = quandl['dataset']
                 column_names = [cn.replace('-', '').replace(' ', '').replace('.', '') for cn in data['column_names']]
 
-                df = TruthyDataFrame(data['data'], columns=column_names)
+                df = pd.DataFrame(data['data'], columns=column_names)
                 df['Date'] = pd.to_datetime(df['Date'])
                 df['date_str'] = df.Date.apply(str)
                 df.__bool__ = lambda x: False
@@ -72,13 +73,13 @@ def stocks():
                 df = TruthyDataFrame(df.drop([col for col in df.columns if col not in fix_names], axis=1))
                 del quandl, data
 
+                print("bool(df) = " + str(bool(df)))
+
                 tooltips = []
                 for index, opt in enumerate(tooltip_options):
                     opt_fix = opt.replace('-', '').replace(' ', '').replace('.', '')
                     tooltips.append((opt, '@'+opt_fix+'{0,0.000}'))
 
-
-                print(tooltips)
                 hover = HoverTool(tooltips=tooltips)
 
                 plot = figure(plot_height=200, x_axis_type='datetime',
