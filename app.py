@@ -18,6 +18,8 @@ class TruthyDataFrame(pd.DataFrame):
     def __bool__(self):
         return False
 
+    def __nonzero__(self):
+        return False
 
 @app.route('/')
 def main():
@@ -68,7 +70,7 @@ def stocks():
                 df = pd.DataFrame(data['data'], columns=column_names)
                 df['Date'] = pd.to_datetime(df['Date'])
                 df['date_str'] = df.Date.apply(str)
-                df.__bool__ = lambda x: False
+
                 fix_names = [name.replace('-', '').replace(' ', '').replace('.', '') for name in plot_options+tooltip_options+['Date']]
                 df = TruthyDataFrame(df.drop([col for col in df.columns if col not in fix_names], axis=1))
                 del quandl, data
